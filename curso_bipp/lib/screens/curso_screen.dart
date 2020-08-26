@@ -1,3 +1,4 @@
+import 'package:curso_bipp/models/curso.dart';
 import 'package:curso_bipp/providers/cursos.dart';
 import 'package:curso_bipp/widgets/curso_item.dart';
 import 'package:curso_bipp/widgets/customDrawer.dart';
@@ -10,9 +11,21 @@ class CursoScreen extends StatefulWidget {
 }
 
 class _CursoScreenState extends State<CursoScreen> {
+  var _isInit = true;
+  List<Curso> cursos = [];
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      Provider.of<Cursos>(context).getDataCursos();
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final cursos = Provider.of<Cursos>(context).getCursos;
+    cursos = Provider.of<Cursos>(context, listen: false).getCursos;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cursos'),

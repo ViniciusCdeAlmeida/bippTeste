@@ -16,3 +16,17 @@ class Curso with ChangeNotifier {
     @required this.imagemPrincipal,
   });
 }
+
+List<Curso> fromJson(List json) {
+  return List<Curso>.from(
+    (json).map(
+      (item) => Curso(
+        id: item['id'],
+        titulo: item['titulo'],
+        descricao: item['descricao'],
+        imgUrl: (item['imgUrl'] as List).map((e) => e as String).toList(),
+        imagemPrincipal: item['imagemPrincipal'],
+      ),
+    ),
+  );
+}
